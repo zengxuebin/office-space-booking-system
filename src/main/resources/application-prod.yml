@@ -1,0 +1,44 @@
+server:
+  # 端口
+  port: 8080
+  # 上下文
+  servlet:
+    context-path: /osbs
+
+spring:
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 数据库名称
+    url: jdbc:mysql://localhost:3306/office_space_booking?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf-8
+    # mysql用户名
+    username: root
+    # mysql密码
+    password: zeng0093
+  # redis相关配置
+  redis:
+    host: localhost
+    port: 6379
+
+alipay:
+  appId:
+  appPrivateKey:
+  alipayPublicKey:
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 将 Java 实体类属性的驼峰命名规则转换为数据库字段的下划线命名规则
+    map-underscore-to-camel-case: true
+  # 指定 Mapper XML 文件的位置，使用 classpath 通配符指定路径
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+  # id自增
+  global-config:
+    db-config:
+      id-type: auto
+
+# 日志配置
+logging:
+  level:
+    root: info
+    com.ecjtu.osbs: debug

@@ -1,0 +1,45 @@
+server:
+  # 端口
+  port: 8080
+  # 上下文
+  servlet:
+    context-path: /osbs
+
+spring:
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 数据库名称
+    url: jdbc:mysql://localhost:3306/office_space_booking?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf-8
+    # mysql用户名
+    username: root
+    # mysql密码
+    password: zeng0093
+  # redis相关配置
+  redis:
+    host: localhost
+    port: 6379
+
+alipay:
+  appId: 9021000136652565
+  appPrivateKey: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCZ7Ucg9bcFoyjHmFlhfSvjugajLBF4Q7FTV3xxVmsCIexZS1Idmjuuf8cestUXvdgpoWtmkA3P7nHC+srWDsFXyokAG7pXkW16CCeyR85DXQb0KDsTygThRTqTJO5xZEfauSgE+ZyYx00kgsrvySHYrPQF9MlXPA73MLQg9FhEzMTF9lgv2rwTv1Wyd6+yo8kflKomGB6RjnzH9/DvFZMsy3rgsfYxMALnZvnpRzWxLEjnsmpEO46EHxkc1hCMFgAp/FvF3Xb1vTYo7ru4zEa56pkTd7RSn4/QSnciLFn1UKg2GhRS2E4cxtNKx9QUHYKUL+8VFySbLejTqlPtQr1bAgMBAAECggEAeN3VnW70EQwmKFxbyu5j+USIk7Y13Y6h/kRTJhfqnNkQYql/SFlkhcg2Dcf1Bdh/lWj4EagKAH1GfQk7HsylSw9xdlFPiBVctpcSvK4fq8uveybgBND79fvLW+GDDizlMz1yzD1Ilrrgu0usmI8B8ccVMlwdgU9anQV0W/AiI5rDHcWYiE0AftD6zzL0wcGBlboxXsVbi/UujXt7gA9wmG5eqrumbaeIuD0eLDpKMLi3ZmzrpX2G0uZ2d5++Wi8GPAI+PDJit+ZrlRRKJ017gL1QxsieNIxFCpYLEw19c+2uGdmSDBrDF3aqBouKffejeNeJFjD4jVZKPcNJl9EC4QKBgQDJI5pJ2ZglBNUK38zyfxiqIRQWA+xYjstlFRqrULF/6QqdZrtbrtxtiuKjffJ21S88HAGRhr550WMJIaKoAwY/l0Hye7ISXfqlMMVVKS+S4cYsrpVCO5Ff0sBIKTDLcJQbwbn2JGk9e7z0cAWE3ZBrM2D6dP+cCeuDENuVALMS8QKBgQDD6R2HOel135L79YP2QwxPkLzn14mtnlmtaYSfugZ9Mf/CUHpqcpO0Z38tRG6Yv6DmLURMs7ZqwJuC8yLIgGYYUhhi0gx52RilI5nWGC7IqDetfJyTrtgikxJ0nLNDQUy0Inl/wCl0LjH5QP//8I1kgKp95uVNAm2iW1emr+W9CwKBgEHgyFLx0tQlHgX+wSiXmiN2zBZd2JY0xsdnvyFnP4uub0yYbjscLZQvTgXQZY6oSl08qwLYCCDsBKzj+FthCjXfu7jI7Mz5PPPH4on/AFbyXa8ay0YzLm0dIN9Bpnqrd8cTj23gBRwfIAdLfXNEAl4qKNQ/Z8zarulxpwnJfd1xAoGAPq1LBCNT/KEdnjxrDpNe0enFdgrwAjrCCAfVJWDXiKBBagJjV8D2XmYqOupE09ui92EOE9f/CWI7noZ431qszyUcpij7UtRQ3SxpoCQ2e33N6lQOp/TtMwqIggRMGb0/c/X/lw58dK3+0PapsFFeewPrB8KiI6QePS4p+asWvgcCgYEAvyOzDeZe8E0D+DUwFU+ES/OJTBB8B9h0rA7xFoyHwB6HjspfQLP57ZGqS5+vswgjxfI2LY6EczveLwwQEAQEt2lC/Sl5n/NtrmIbMJz0ddkm1ZMUS+6tDbtWNsa+pS2gjS9qkexJoW7x6k/GNmmkCiCDkxcxmQmukvcInXmAG4g=
+  alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsTtFBprMBcsNDZWiTT3x0OS+91bHrdL2cUwJA+8HNG/U0H3HvGfpyOAfbUargX0dv/Y/vgchFaUK8LPaqUS1GyiYPW5RYkWKquMySUfpLMWspLcdSejEB11QHSmQt1jJIvxQHKeXnLGtW0a/wUARLUMYM+MU04Lv8QKkDCrde2lHhrjZU6wLH4IBGWNNKW4cHQL3lv1eNnZo/g1ho2YTVZqByify83+IfwW/OxIb4HZ6sTIzlwNS9yl3d7GLzKvvqIEyfqY2qK5XiXuZKQponzjN6cs7o+mhGzopx66xXrot46MQ+/LLjYw3o0mOCrYwrurCYL30egan0h4vyRrHTwIDAQAB
+  gatewayUrl: https://openapi-sandbox.dl.alipaydev.com/gateway.do
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 将 Java 实体类属性的驼峰命名规则转换为数据库字段的下划线命名规则
+    map-underscore-to-camel-case: true
+  # 指定 Mapper XML 文件的位置，使用 classpath 通配符指定路径
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+  # id自增
+  global-config:
+    db-config:
+      id-type: auto
+
+# 日志配置
+logging:
+  level:
+    root: info
+    com.ecjtu.osbs: debug

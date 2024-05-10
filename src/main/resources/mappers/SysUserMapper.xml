@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecjtu.osbs.web.dao.SysUserDao">
+
+    <select id="selectSysUserByUsername" resultType="com.ecjtu.osbs.pojo.DO.SysUserDO">
+        SELECT id,
+               username,
+               password,
+               role,
+               email,
+               phone_number,
+               register_time
+        FROM sys_user
+        WHERE username = #{username}
+    </select>
+
+</mapper>

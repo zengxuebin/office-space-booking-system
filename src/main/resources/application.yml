@@ -1,0 +1,5 @@
+# spring配置
+spring:
+  # 更换环境配置文件，记得改成prod
+  profiles:
+    active: dev

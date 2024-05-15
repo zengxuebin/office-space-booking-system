@@ -21,14 +21,15 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    /**
+     * 登录接口
+     *
+     * @param loginDTO username password
+     * @return token
+     */
     @PostMapping("login")
     public ResponseResult<String> login(@Valid @RequestBody LoginDTO loginDTO){
         String token = authService.login(loginDTO.getUsername(), loginDTO.getPassword());
         return ResponseResult.success(token);
-    }
-
-    @GetMapping("test")
-    public ResponseResult<String> test() {
-        return ResponseResult.success("test");
     }
 }

@@ -2,11 +2,6 @@ package com.ecjtu.osbs.pojo.DO;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -52,6 +47,11 @@ public class SysUserDO {
     private String email;
 
     /**
+     * 部门id
+     */
+    private String deptId;
+
+    /**
      * 手机号
      */
     private String phoneNumber;
@@ -59,13 +59,11 @@ public class SysUserDO {
     /**
      * 注册时间
      */
-    @JsonIgnore
     private LocalDateTime registerTime;
 
     /**
      * 更新时间
      */
-    @JsonIgnore
     private LocalDateTime updateTime;
 
 }

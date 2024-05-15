@@ -4,7 +4,7 @@
 INSERT INTO sys_dept (id, parent_id, dept_name, leader, phone, status) VALUES (1, NULL, 'ecjtu', 'boss', '12345678901', '0');
 INSERT INTO sys_dept (id, parent_id, dept_name, leader, phone, status) VALUES (2, 1, 'first', 'zhangsan', '98765432101', '0');
 INSERT INTO sys_dept (id, parent_id, dept_name, leader, phone, status) VALUES (3, 1, 'second', 'lisi', '32146578902', '0');
-INSERT INTO sys_dept (id, parent_id, dept_name, leader, phone, status) VALUES (4, 1, 'second', 'wangwu', '32146578902', '0');
+INSERT INTO sys_dept (id, parent_id, dept_name, leader, phone, status) VALUES (4, 1, 'third', 'wangwu', '32146578902', '0');
 INSERT INTO sys_dept (id, parent_id, dept_name, leader, phone, status) VALUES (5, 1, 'fourth', 'zhaoliu', '13746582930', '0');
 
 /*

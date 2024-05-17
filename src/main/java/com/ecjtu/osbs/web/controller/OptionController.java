@@ -25,6 +25,11 @@ public class OptionController {
     @Autowired
     private SysDeptService sysDeptService;
 
+    /**
+     * 获取部门选项
+     *
+     * @return 部门选项
+     */
     @GetMapping("dept")
     public ResponseResult<List<OptionVO>> getDeptOption() {
         List<SysDeptDO> list = sysDeptService.list();

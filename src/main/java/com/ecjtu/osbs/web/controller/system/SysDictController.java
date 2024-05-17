@@ -7,16 +7,15 @@ import com.ecjtu.osbs.pojo.DO.SysDictDO;
 import com.ecjtu.osbs.pojo.DTO.system.SysDictQuery;
 import com.ecjtu.osbs.pojo.PageInfo;
 import com.ecjtu.osbs.pojo.ResponseResult;
+import com.ecjtu.osbs.pojo.VO.OptionVO;
 import com.ecjtu.osbs.web.service.SysDictService;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 字典管理控制层
@@ -102,5 +101,26 @@ public class SysDictController {
     public ResponseResult<Void> batchDeleteSysDict(@RequestBody List<Integer> ids) {
         sysDictService.removeByIds(ids);
         return ResponseResult.success();
+    }
+
+    /**
+     * 获取字典选项
+     *
+     * @param dictType 字典类型
+     * @return 字典选项
+     */
+    @GetMapping("/{dictType}")
+    public ResponseResult<List<OptionVO>> getDictOption(@PathVariable String dictType) {
+        LambdaQueryWrapper<SysDictDO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SysDictDO::getDictType, dictType);
+        List<SysDictDO> list = sysDictService.list(queryWrapper);
+        List<OptionVO> optionVOList = list.stream()
+                .map(sysDictDO -> {
+                    OptionVO optionVO = new OptionVO();
+                    optionVO.setLabel(sysDictDO.getDictLabel());
+                    optionVO.setValue(sysDictDO.getDictValue());
+                    return optionVO;
+                }).collect(Collectors.toList());
+        return ResponseResult.success(optionVOList);
     }
 }

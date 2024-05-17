@@ -68,7 +68,7 @@ public class SysUserController {
         LambdaQueryWrapper<SysUserDO> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(SysUserDO::getUsername, sysUserDO.getUsername());
         if (sysUserService.count(queryWrapper) > 0) {
-            return ResponseResult.fail(ResponseCode.USERNAME_EXISTS_CODE, "用户名已存在");
+            return ResponseResult.fail(ResponseCode.EXISTS_CODE, "用户名已存在");
         }
 
         LocalDateTime now = LocalDateTime.now();

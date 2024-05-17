@@ -29,9 +29,9 @@ public class ResponseCode {
     public static final int USERNAME_OR_PASSWORD_ERROR_CODE = 401;
 
     /**
-     * 用户名已存在
+     * 已存在
      */
-    public static final int USERNAME_EXISTS_CODE = 400;
+    public static final int EXISTS_CODE = 400;
 
     /**
      * token已过期

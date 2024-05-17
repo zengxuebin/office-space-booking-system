@@ -1,5 +1,10 @@
 package com.ecjtu.osbs.util;
 
+import com.ecjtu.osbs.constant.ResponseCode;
+import com.ecjtu.osbs.exception.CustomException;
+import com.ecjtu.osbs.pojo.UserDetailsInfo;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
@@ -41,5 +46,26 @@ public class SecurityUtil {
      */
     public static boolean isAdmin(Integer userId) {
         return userId != null && 1L == userId;
+    }
+
+    /**
+     * 获取Authentication
+     * @return 身份认证
+     */
+    public static Authentication getAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
+
+    /**
+     * 获取登陆用户信息
+     *
+     * @return 用户信息
+     */
+    public static UserDetailsInfo getUserDetailsInfo() {
+        try {
+            return (UserDetailsInfo) getAuthentication().getPrincipal();
+        } catch (Exception e) {
+            throw new CustomException(ResponseCode.UNAUTHORIZED_CODE, "获取用户信息异常");
+        }
     }
 }

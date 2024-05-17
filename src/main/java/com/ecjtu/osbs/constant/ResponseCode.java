@@ -47,4 +47,9 @@ public class ResponseCode {
      * 未登录
      */
     public static final int NOT_LOGIN_CODE = 404;
+
+    /**
+     * 获取用户信息异常
+     */
+    public static final int UNAUTHORIZED_CODE = 405;
 }

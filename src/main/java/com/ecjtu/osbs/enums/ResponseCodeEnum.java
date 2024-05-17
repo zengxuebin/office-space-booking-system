@@ -1,6 +1,7 @@
 package com.ecjtu.osbs.enums;
 
 import com.ecjtu.osbs.constant.ResponseCode;
+import lombok.Getter;
 
 /**
  * 返回结果集状态码
@@ -8,6 +9,7 @@ import com.ecjtu.osbs.constant.ResponseCode;
  * @author CaoLongHui
  * @since 2024/3/7 23:56
  */
+@Getter
 public enum ResponseCodeEnum {
 
     /**
@@ -44,11 +46,4 @@ public enum ResponseCodeEnum {
         this.message = message;
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
 }

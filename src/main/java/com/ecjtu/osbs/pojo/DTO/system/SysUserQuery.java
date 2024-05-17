@@ -3,18 +3,13 @@ package com.ecjtu.osbs.pojo.DTO.system;
 import lombok.Data;
 
 /**
- * 用户修改删除对象
+ * 用户查询参数
  *
  * @author CaoLongHui
- * @since 2024/5/18 00:23
+ * @since 2024/5/15 22:41
  */
 @Data
-public class SysUserDTO {
-
-    /**
-     * 用户编号
-     */
-    private Integer id;
+public class SysUserQuery {
 
     /**
      * 用户名
@@ -22,17 +17,7 @@ public class SysUserDTO {
     private String username;
 
     /**
-     * 密码
-     */
-    private String password;
-
-    /**
-     * 邮箱
-     */
-    private String email;
-
-    /**
-     * 部门id
+     * 所属部门
      */
     private String deptId;
 

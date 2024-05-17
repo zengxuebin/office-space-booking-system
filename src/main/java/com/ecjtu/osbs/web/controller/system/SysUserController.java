@@ -105,7 +105,7 @@ public class SysUserController {
      */
     @PostMapping("delete")
     public ResponseResult<Void> deleteSysUser(@RequestBody Integer id) {
-        if (RoleEnum.ADMIN.getValue().equals(id.toString())) {
+        if (SecurityUtil.isAdmin(id)) {
             return ResponseResult.fail(ResponseCode.FAILURE_CODE, "管理员不能删除");
         }
         sysUserService.removeById(id);

@@ -39,7 +39,7 @@ public class SecurityUtil {
      * @param userId 用户编号
      * @return true=管理员 false=非管理员
      */
-    public static boolean isAdmin(Long userId) {
+    public static boolean isAdmin(Integer userId) {
         return userId != null && 1L == userId;
     }
 }

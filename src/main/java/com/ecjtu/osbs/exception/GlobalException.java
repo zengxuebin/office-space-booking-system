@@ -23,7 +23,7 @@ public class GlobalException {
     @ExceptionHandler(Exception.class)
     public ResponseResult<Void> exception(Exception e) {
         LOGGER.error("全局异常信息 e=", e);
-        return ResponseResult.error();
+        return ResponseResult.error(e.getMessage());
     }
 
     @ExceptionHandler(CustomException.class)

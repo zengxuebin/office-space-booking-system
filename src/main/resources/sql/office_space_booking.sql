@@ -147,6 +147,7 @@ CREATE TABLE `biz_reserve`
     `id`           INT(11)     NOT NULL AUTO_INCREMENT COMMENT '预约id',
     `user_id`      INT(11)     NOT NULL COMMENT '用户id',
     `space_id`     INT(11)     NOT NULL COMMENT '办公空间id',
+    `topic`        VARCHAR(255) COMMENT '预约主题',
     `reserve_time` DATETIME COMMENT '预约时间',
     `start_time`   DATETIME COMMENT '预约开始时间',
     `end_time`     DATETIME COMMENT '预约结束时间',
@@ -218,6 +219,7 @@ CREATE TABLE `biz_credit_score`
     `user_id`          INT(11)  NOT NULL COMMENT '用户id',
     `score`            INT(11)  NOT NULL COMMENT '信誉分 初始信誉分为100',
     `level`            VARCHAR(12) COMMENT '信誉分等级',
+    `create_time` DATETIME NOT NULL COMMENT '创建时间',
     `last_update_time` DATETIME NOT NULL COMMENT '最后更新时间',
     PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `biz_space_category` (`id`) ON DELETE CASCADE
@@ -284,7 +286,7 @@ CREATE TABLE `biz_account`
     `balance`     FLOAT(2) NOT NULL COMMENT '账户余额',
     `status`      VARCHAR(11) COMMENT '账户状态：0-正常 1-冻结 2-注销',
     `create_time` DATETIME NOT NULL COMMENT '账户创建时间',
-    `update_time` DATETIME    NOT NULL COMMENT '更新时间',
+    `update_time` DATETIME NOT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `sys_user` (`id`) ON DELETE CASCADE
 ) ENGINE = InnoDB

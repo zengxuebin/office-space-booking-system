@@ -44,4 +44,10 @@ public class AccountDO {
      * 账户创建时间
      */
     private LocalDateTime createTime;
+
+
+    /**
+     * 账户更新时间
+     */
+    private LocalDateTime updateTime;
 }

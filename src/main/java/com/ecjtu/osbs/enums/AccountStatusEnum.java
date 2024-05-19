@@ -3,31 +3,36 @@ package com.ecjtu.osbs.enums;
 import lombok.Getter;
 
 /**
- * 角色枚举类
+ * 账户枚举类
  *
  * @author CaoLongHui
  * @since 2024/5/18 00:00
  */
 @Getter
-public enum RoleEnum {
+public enum AccountStatusEnum {
 
 
     /**
-     * 管理员
+     * 正常
      */
-    ADMIN("管理员","1"),
+    NORMAL("正常","0"),
 
     /**
-     * 普通用户
+     * 冻结
      */
-    USER("普通用户","2");
+    FROZEN("冻结","1"),
+
+    /**
+     * 注销
+     */
+    DELETED("注销","2");
 
     private final String name;
     private final String value;
 
-    RoleEnum(String name, String value) {
+    AccountStatusEnum(String name, String value) {
         this.name = name;
         this.value = value;
     }
-
+    
 }

@@ -307,8 +307,8 @@ INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update
 /*
  * 初始化信誉分表
  */
-INSERT INTO biz_credit_score (id, user_id, score, level, last_update_time) VALUES (1, 1, 100, '4', '2024-03-01 09:54:49');
-INSERT INTO biz_credit_score (id, user_id, score, level, last_update_time) VALUES (2, 2, 100, '4', '2024-03-01 09:56:31');
+INSERT INTO biz_credit_score (id, user_id, score, level, create_time, last_update_time) VALUES (1, 1, 100, '4', '2024-03-01 09:54:49', '2024-03-01 09:54:49');
+INSERT INTO biz_credit_score (id, user_id, score, level, create_time, last_update_time) VALUES (2, 2, 100, '4', '2024-03-01 09:56:31', '2024-03-01 09:56:31');
 
 /*
  * 初始化信誉分变更历史表

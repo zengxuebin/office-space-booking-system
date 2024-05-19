@@ -3,13 +3,18 @@ package com.ecjtu.osbs.web.controller.system;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ecjtu.osbs.constant.ResponseCode;
+import com.ecjtu.osbs.enums.AccountStatusEnum;
 import com.ecjtu.osbs.enums.RoleEnum;
+import com.ecjtu.osbs.pojo.DO.AccountDO;
+import com.ecjtu.osbs.pojo.DO.CreditScoreDO;
 import com.ecjtu.osbs.pojo.DO.SysUserDO;
 import com.ecjtu.osbs.pojo.DTO.system.SysUserDTO;
 import com.ecjtu.osbs.pojo.DTO.system.SysUserQuery;
 import com.ecjtu.osbs.pojo.PageInfo;
 import com.ecjtu.osbs.pojo.ResponseResult;
 import com.ecjtu.osbs.util.SecurityUtil;
+import com.ecjtu.osbs.web.service.AccountService;
+import com.ecjtu.osbs.web.service.CreditScoreService;
 import com.ecjtu.osbs.web.service.SysUserService;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -35,6 +41,12 @@ public class SysUserController {
 
     @Autowired
     private SysUserService sysUserService;
+
+    @Autowired
+    private AccountService accountService;
+
+    @Autowired
+    private CreditScoreService creditScoreService;
 
     /**
      * 分页查询用户
@@ -79,6 +91,23 @@ public class SysUserController {
         sysUserDO.setRegisterTime(now);
         sysUserDO.setUpdateTime(now);
         sysUserService.save(sysUserDO);
+
+        // 创建账户
+        AccountDO accountDO = new AccountDO();
+        accountDO.setUserId(sysUserDO.getId());
+        accountDO.setBalance(new BigDecimal("10"));
+        accountDO.setStatus(AccountStatusEnum.NORMAL.getValue());
+        accountDO.setCreateTime(now);
+        accountDO.setUpdateTime(now);
+        accountService.save(accountDO);
+
+        // 创建信誉分
+        CreditScoreDO creditScoreDO = new CreditScoreDO();
+        creditScoreDO.setUserId(sysUserDO.getId());
+        creditScoreDO.setScore(100);
+        creditScoreDO.setCreateTime(now);
+        creditScoreDO.setLastUpdateTime(now);
+        creditScoreService.save(creditScoreDO);
         return ResponseResult.success();
     }
 

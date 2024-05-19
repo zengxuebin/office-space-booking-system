@@ -61,7 +61,7 @@ public class SysDictController {
         queryWrapper.eq(SysDictDO::getDictType, sysDictDO.getDictType())
                 .eq(SysDictDO::getDictValue, sysDictDO.getDictValue());
         if (sysDictService.count(queryWrapper) > 0) {
-            return ResponseResult.fail(ResponseCode.EXISTS_CODE, "字典名已存在");
+            return ResponseResult.fail(ResponseCode.EXISTS_CODE, "字典已存在");
         }
         sysDictService.save(sysDictDO);
         return ResponseResult.success();

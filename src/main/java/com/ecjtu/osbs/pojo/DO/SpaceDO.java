@@ -32,6 +32,11 @@ public class SpaceDO {
     private Integer categoryId;
 
     /**
+     * 位置id
+     */
+    private String locationId;
+
+    /**
      * 办公空间名称
      */
     private String spaceName;
@@ -40,16 +45,6 @@ public class SpaceDO {
      * 办公空间描述
      */
     private String description;
-
-    /**
-     * 办公空间位置
-     */
-    private String location;
-
-    /**
-     * 可用容量
-     */
-    private Integer usableCapacity;
 
     /**
      * 总容量
@@ -62,7 +57,7 @@ public class SpaceDO {
     private BigDecimal pricePerHour;
 
     /**
-     * 状态 0-空闲 1-已预定 2-维护中
+     * 状态 0-开放 2-维护中
      */
     private String status;
 }

@@ -26,9 +26,8 @@ INSERT INTO sys_dict (id, dict_name, dict_type, dict_value, dict_label) VALUES (
 INSERT INTO sys_dict (id, dict_name, dict_type, dict_value, dict_label) VALUES (2, '用户类型', 'sys_user_type', '2', '普通用户');
 INSERT INTO sys_dict (id, dict_name, dict_type, dict_value, dict_label) VALUES (3, '部门状态', 'sys_dept_status', '0', '正常');
 INSERT INTO sys_dict (id, dict_name, dict_type, dict_value, dict_label) VALUES (4, '部门状态', 'sys_dept_status', '1', '停用');
-INSERT INTO sys_dict (id, dict_name, dict_type, dict_value, dict_label) VALUES (10, '共享空间状态', 'biz_space_status', '0', '空闲');
-INSERT INTO sys_dict (id, dict_name, dict_type, dict_value, dict_label) VALUES (11, '共享空间状态', 'biz_space_status', '1', '已预订');
-INSERT INTO sys_dict (id, dict_name, dict_type, dict_value, dict_label) VALUES (12, '共享空间状态', 'biz_space_status', '2', '维护中');
+INSERT INTO sys_dict (id, dict_name, dict_type, dict_value, dict_label) VALUES (10, '共享空间状态', 'biz_space_status', '0', '开放');
+INSERT INTO sys_dict (id, dict_name, dict_type, dict_value, dict_label) VALUES (11, '共享空间状态', 'biz_space_status', '1', '维护中');
 INSERT INTO sys_dict (id, dict_name, dict_type, dict_value, dict_label) VALUES (13, '预约状态', 'biz_reserve_status', '0', '待付款');
 INSERT INTO sys_dict (id, dict_name, dict_type, dict_value, dict_label) VALUES (14, '预约状态', 'biz_reserve_status', '1', '待使用');
 INSERT INTO sys_dict (id, dict_name, dict_type, dict_value, dict_label) VALUES (15, '预约状态', 'biz_reserve_status', '2', '待评价');
@@ -64,11 +63,11 @@ INSERT INTO sys_dict (id, dict_name, dict_type, dict_value, dict_label) VALUES (
 /*
  * 初始化办公空间类别表
  */
-INSERT INTO biz_space_category (id, category_name, is_audit) VALUES (1, '开放式工位', '1');
-INSERT INTO biz_space_category (id, category_name, is_audit) VALUES (2, '独立办公室', '0');
-INSERT INTO biz_space_category (id, category_name, is_audit) VALUES (3, '会议室', '0');
-INSERT INTO biz_space_category (id, category_name, is_audit) VALUES (4, '体育场馆', '0');
-INSERT INTO biz_space_category (id, category_name, is_audit) VALUES (5, '报告厅', '0');
+INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update_time) VALUES (1, '开放式工位', '1', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update_time) VALUES (2, '独立办公室', '0', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update_time) VALUES (3, '会议室', '0', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update_time) VALUES (4, '体育场馆', '0', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update_time) VALUES (5, '报告厅', '0', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
 
 /*
  * 初始化位置表
@@ -298,21 +297,12 @@ INSERT INTO biz_space (id, category_id, location_id, space_name, description, ca
 /*
  * 初始化空间设备表
  */
-INSERT INTO biz_space_equipment (id, category_id, name) VALUES (1, 1, '可移动座位');
-INSERT INTO biz_space_equipment (id, category_id, name) VALUES (2, 1, '免费WIFI');
-INSERT INTO biz_space_equipment (id, category_id, name) VALUES (3, 1, '座位插座');
-INSERT INTO biz_space_equipment (id, category_id, name) VALUES (4, 2, '沙发');
-INSERT INTO biz_space_equipment (id, category_id, name) VALUES (5, 2, '办公桌椅');
-INSERT INTO biz_space_equipment (id, category_id, name) VALUES (6, 2, '茶具');
-INSERT INTO biz_space_equipment (id, category_id, name) VALUES (7, 2, '空调');
-INSERT INTO biz_space_equipment (id, category_id, name) VALUES (8, 3, '液晶屏');
-INSERT INTO biz_space_equipment (id, category_id, name) VALUES (9, 3, '网络视频终端');
-INSERT INTO biz_space_equipment (id, category_id, name) VALUES (10, 3, '白板');
-INSERT INTO biz_space_equipment (id, category_id, name) VALUES (11, 3, '投影仪');
-INSERT INTO biz_space_equipment (id, category_id, name) VALUES (12, 3, '长桌');
-INSERT INTO biz_space_equipment (id, category_id, name) VALUES (13, 4, '免费WIFI');
-INSERT INTO biz_space_equipment (id, category_id, name) VALUES (14, 5, '超大巨幕投影');
-INSERT INTO biz_space_equipment (id, category_id, name) VALUES (15, 5, '报告会场服务');
+INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update_time) VALUES (1, '开放式工位', '1', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update_time) VALUES (2, '独立办公室', '0', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update_time) VALUES (3, '会议室', '0', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update_time) VALUES (4, '体育场馆', '0', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update_time) VALUES (5, '报告厅', '0', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update_time) VALUES (7, 'test1', '1', '2024-05-19 18:45:13', '2024-05-19 18:45:20');
 
 /*
  * 初始化信誉分表
@@ -329,5 +319,5 @@ INSERT INTO biz_credit_score_change (id, credit_score_id, after_score, change_re
 /*
  * 初始化账户表
  */
-INSERT INTO biz_account (id, user_id, balance, status, create_time) VALUES (1, 1, 10, '0', '2024-03-01 09:02:03');
-INSERT INTO biz_account (id, user_id, balance, status, create_time) VALUES (2, 2, 10, '0', '2024-03-01 09:02:03');
+INSERT INTO biz_account (id, user_id, balance, status, create_time, update_time) VALUES (1, 1, 10, '0', '2024-03-01 09:02:03', '2024-03-01 09:02:03');
+INSERT INTO biz_account (id, user_id, balance, status, create_time, update_time) VALUES (2, 2, 10, '0', '2024-03-01 09:02:03', '2024-03-01 09:02:03');

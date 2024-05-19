@@ -80,6 +80,8 @@ CREATE TABLE `biz_space_category`
     `id`            INT(11)     NOT NULL AUTO_INCREMENT COMMENT '类别id',
     `category_name` VARCHAR(50) NOT NULL COMMENT '类别名称：0-开发式工位 1-独立办公室 2-会议室 3-体育场馆 4-报告厅',
     `is_audit`      CHAR(2) COMMENT '是否需要审批：0-需要审批 1-免审批',
+    `create_time`   DATETIME    NOT NULL COMMENT '创建时间',
+    `update_time`   DATETIME    NOT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
@@ -106,14 +108,14 @@ CREATE TABLE `biz_location`
 DROP TABLE IF EXISTS `biz_space`;
 CREATE TABLE `biz_space`
 (
-    `id`              INT(11)     NOT NULL AUTO_INCREMENT COMMENT '办公空间id',
-    `category_id`     INT(11)     NOT NULL COMMENT '类别id',
-    `location_id`        INT(11)  COMMENT '位置id',
-    `space_name`      VARCHAR(50) NOT NULL COMMENT '办公空间名称',
-    `description`     VARCHAR(255) COMMENT '办公空间描述',
-    `capacity`        INT(11) COMMENT '容量',
-    `price_per_hour`  FLOAT(2) COMMENT '每小时价格',
-    `status`          VARCHAR(16) NOT NULL COMMENT '状态：0-空闲 1-已预定 2-维护中',
+    `id`             INT(11)     NOT NULL AUTO_INCREMENT COMMENT '办公空间id',
+    `category_id`    INT(11)     NOT NULL COMMENT '类别id',
+    `location_id`    INT(11) COMMENT '位置id',
+    `space_name`     VARCHAR(50) NOT NULL COMMENT '办公空间名称',
+    `description`    VARCHAR(255) COMMENT '办公空间描述',
+    `capacity`       INT(11) COMMENT '容量',
+    `price_per_hour` FLOAT(2) COMMENT '每小时价格',
+    `status`         VARCHAR(16) NOT NULL COMMENT '状态：0-空闲 1-已预定 2-维护中',
     PRIMARY KEY (`id`),
     FOREIGN KEY (`category_id`) REFERENCES `biz_space_category` (`id`) ON DELETE CASCADE,
     FOREIGN KEY (`location_id`) REFERENCES `biz_location` (`id`) ON DELETE CASCADE
@@ -126,9 +128,11 @@ CREATE TABLE `biz_space`
 DROP TABLE IF EXISTS `biz_space_equipment`;
 CREATE TABLE `biz_space_equipment`
 (
-    `id`       INT(11)     NOT NULL AUTO_INCREMENT COMMENT '设备id',
+    `id`          INT(11)     NOT NULL AUTO_INCREMENT COMMENT '设备id',
     `category_id` INT(11)     NOT NULL COMMENT '空间id',
-    `name`     VARCHAR(64) NOT NULL COMMENT '设备名称',
+    `name`        VARCHAR(64) NOT NULL COMMENT '设备名称',
+    `create_time` DATETIME    NOT NULL COMMENT '创建时间',
+    `update_time` DATETIME    NOT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`),
     FOREIGN KEY (`category_id`) REFERENCES `biz_space_category` (`id`) ON DELETE CASCADE
 ) ENGINE = InnoDB
@@ -226,11 +230,11 @@ CREATE TABLE `biz_credit_score`
 DROP TABLE IF EXISTS `biz_credit_score_change`;
 CREATE TABLE `biz_credit_score_change`
 (
-    `id`            INT(11)  NOT NULL AUTO_INCREMENT COMMENT '变更历史id',
+    `id`              INT(11)  NOT NULL AUTO_INCREMENT COMMENT '变更历史id',
     `credit_score_id` INT(11)  NOT NULL COMMENT '信誉分id',
-    `after_score`    INT(11)  NOT NULL COMMENT '变更后信誉分',
-    `change_reason`  VARCHAR(255) COMMENT '变更原因',
-    `change_time`    DATETIME NOT NULL COMMENT '变更时间',
+    `after_score`     INT(11)  NOT NULL COMMENT '变更后信誉分',
+    `change_reason`   VARCHAR(255) COMMENT '变更原因',
+    `change_time`     DATETIME NOT NULL COMMENT '变更时间',
     PRIMARY KEY (`id`),
     FOREIGN KEY (`credit_score_id`) REFERENCES `biz_credit_score` (`id`) ON DELETE CASCADE
 ) ENGINE = InnoDB
@@ -280,6 +284,7 @@ CREATE TABLE `biz_account`
     `balance`     FLOAT(2) NOT NULL COMMENT '账户余额',
     `status`      VARCHAR(11) COMMENT '账户状态：0-正常 1-冻结 2-注销',
     `create_time` DATETIME NOT NULL COMMENT '账户创建时间',
+    `update_time` DATETIME    NOT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `sys_user` (`id`) ON DELETE CASCADE
 ) ENGINE = InnoDB

@@ -6,10 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 /**
- * 业务-办公空间类别实体类
+ * 业务-办公空间位置实体类
  *
  * @author CaoLongHui
  * @since 2024/3/9 15:43
@@ -17,33 +15,38 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@TableName("biz_space_category")
-public class SpaceCategoryDO {
+@TableName("biz_location")
+public class SpaceLocationDO {
 
     /**
-     * 类别id
+     * 共享空间位置id
      */
     @TableId
     private Integer id;
 
     /**
-     * 类别名称
+     * 所属区域
      */
-    private String categoryName;
+    private String area;
 
     /**
-     * 是否需要审核
+     * 楼宇名称
      */
-    private String isAudit;
+    private String name;
 
     /**
-     * 创建时间
+     * 负责人
      */
-    private LocalDateTime createTime;
+    private String chargePerson;
 
     /**
-     * 更新时间
+     * 管理单位
      */
-    private LocalDateTime updateTime;
+    private String managementUnit;
+
+    /**
+     * 联系方式
+     */
+    private String phone;
 
 }

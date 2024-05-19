@@ -49,7 +49,7 @@ public class SysUserController {
         if (ObjectUtils.isNotEmpty(entity)) {
             queryWrapper.like(StringUtils.isNotBlank(entity.getUsername()), SysUserDO::getUsername, entity.getUsername())
                     .like(StringUtils.isNotBlank(entity.getPhoneNumber()), SysUserDO::getPhoneNumber, entity.getPhoneNumber())
-                    .like(StringUtils.isNotBlank(entity.getDeptId()), SysUserDO::getDeptId, entity.getDeptId());
+                    .eq(StringUtils.isNotBlank(entity.getDeptId()), SysUserDO::getDeptId, entity.getDeptId());
         }
         Page<SysUserDO> page = new Page<>(pageInfo.getPageNum(), pageInfo.getPageSize());
         return ResponseResult.success(sysUserService.page(page, queryWrapper));

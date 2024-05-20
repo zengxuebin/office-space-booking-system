@@ -44,7 +44,7 @@ public class RedisConfig {
                 LaissezFaireSubTypeValidator.instance,
                 ObjectMapper.DefaultTyping.NON_FINAL,
                 JsonTypeInfo.As.WRAPPER_ARRAY);
-        //反序列化如果有多的属性，不抛出异常
+        // 反序列化如果有多的属性，不抛出异常
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
 

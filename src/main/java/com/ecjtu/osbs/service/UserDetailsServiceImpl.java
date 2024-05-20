@@ -2,7 +2,7 @@ package com.ecjtu.osbs.service;
 
 import com.ecjtu.osbs.constant.ResponseCode;
 import com.ecjtu.osbs.exception.CustomException;
-import com.ecjtu.osbs.pojo.DO.SysUserDO;
+import com.ecjtu.osbs.pojo.DTO.system.SysUserDTO;
 import com.ecjtu.osbs.pojo.UserDetailsInfo;
 import com.ecjtu.osbs.web.dao.SysUserDao;
 import org.apache.commons.lang3.ObjectUtils;
@@ -33,12 +33,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SysUserDO sysUserDO = sysUserDao.selectSysUserByUsername(username);
-        if (ObjectUtils.isEmpty(sysUserDO)) {
+        SysUserDTO sysUserDTO = sysUserDao.selectSysUserByUsername(username);
+        if (ObjectUtils.isEmpty(sysUserDTO)) {
             throw new CustomException(ResponseCode.USERNAME_OR_PASSWORD_ERROR_CODE, "用户名或密码错误");
         }
 
         // 本系统不接入权限
-        return new UserDetailsInfo(sysUserDO, null);
+        return new UserDetailsInfo(sysUserDTO, null);
     }
 }

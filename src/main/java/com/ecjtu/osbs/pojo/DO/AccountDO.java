@@ -31,6 +31,11 @@ public class AccountDO {
     private Integer userId;
 
     /**
+     * 账户名称
+     */
+    private String accountName;
+
+    /**
      * 账户余额
      */
     private BigDecimal balance;

@@ -1,7 +1,6 @@
 package com.ecjtu.osbs.web.service.impl;
 
 import com.ecjtu.osbs.constant.RedisKey;
-import com.ecjtu.osbs.pojo.DO.SysUserDO;
 import com.ecjtu.osbs.pojo.UserDetailsInfo;
 import com.ecjtu.osbs.util.JwtUtil;
 import com.ecjtu.osbs.util.RedisUtil;
@@ -55,7 +54,7 @@ public class AuthServiceImpl implements AuthService {
 
         // 生成token
         Map<String, Object> claims = new HashMap<>();
-        claims.put("id", userDetailsInfo.getSysUserDO().getId());
+        claims.put("id", userDetailsInfo.getSysUserDTO().getId());
         return JwtUtil.generateToken(username, claims);
     }
 }

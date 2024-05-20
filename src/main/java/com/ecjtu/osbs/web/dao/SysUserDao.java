@@ -2,6 +2,7 @@ package com.ecjtu.osbs.web.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ecjtu.osbs.pojo.DO.SysUserDO;
+import com.ecjtu.osbs.pojo.DTO.system.SysUserDTO;
 
 /**
  * 用户Dao层
@@ -17,5 +18,5 @@ public interface SysUserDao extends BaseMapper<SysUserDO> {
      * @param username 用户名
      * @return 用户信息
      */
-    SysUserDO selectSysUserByUsername(String username);
+    SysUserDTO selectSysUserByUsername(String username);
 }

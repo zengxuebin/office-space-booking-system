@@ -1,13 +1,9 @@
 package com.ecjtu.osbs.web.controller;
 
-import com.ecjtu.osbs.pojo.DO.SpaceCategoryDO;
-import com.ecjtu.osbs.pojo.DO.SpaceLocationDO;
-import com.ecjtu.osbs.pojo.DO.SysDeptDO;
+import com.ecjtu.osbs.pojo.DO.*;
 import com.ecjtu.osbs.pojo.ResponseResult;
 import com.ecjtu.osbs.pojo.VO.OptionVO;
-import com.ecjtu.osbs.web.service.SpaceCategoryService;
-import com.ecjtu.osbs.web.service.SpaceLocationService;
-import com.ecjtu.osbs.web.service.SysDeptService;
+import com.ecjtu.osbs.web.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +30,15 @@ public class OptionController {
 
     @Autowired
     private SpaceLocationService locationService;
+
+    @Autowired
+    private SysUserService sysUserService;
+
+    @Autowired
+    private AccountService accountService;
+
+    @Autowired
+    private SpaceService spaceService;
 
     /**
      * 获取部门选项
@@ -84,6 +89,60 @@ public class OptionController {
                     OptionVO optionVO = new OptionVO();
                     optionVO.setLabel(locationDO.getArea() + locationDO.getName());
                     optionVO.setValue(locationDO.getId().toString());
+                    return optionVO;
+                }).collect(Collectors.toList());
+        return ResponseResult.success(optionVOList);
+    }
+
+    /**
+     * 获取用户选项
+     *
+     * @return 部门位置
+     */
+    @GetMapping("sysUser")
+    public ResponseResult<List<OptionVO>> getSysUserOption() {
+        List<SysUserDO> list = sysUserService.list();
+        List<OptionVO> optionVOList = list.stream()
+                .map(sysUserDO -> {
+                    OptionVO optionVO = new OptionVO();
+                    optionVO.setLabel(sysUserDO.getUsername());
+                    optionVO.setValue(sysUserDO.getId().toString());
+                    return optionVO;
+                }).collect(Collectors.toList());
+        return ResponseResult.success(optionVOList);
+    }
+
+    /**
+     * 获取用户选项
+     *
+     * @return 部门位置
+     */
+    @GetMapping("account")
+    public ResponseResult<List<OptionVO>> getAccountOption() {
+        List<AccountDO> list = accountService.list();
+        List<OptionVO> optionVOList = list.stream()
+                .map(accountDO -> {
+                    OptionVO optionVO = new OptionVO();
+                    optionVO.setLabel(accountDO.getAccountName());
+                    optionVO.setValue(accountDO.getId().toString());
+                    return optionVO;
+                }).collect(Collectors.toList());
+        return ResponseResult.success(optionVOList);
+    }
+
+    /**
+     * 获取空间选项
+     *
+     * @return 部门位置
+     */
+    @GetMapping("space")
+    public ResponseResult<List<OptionVO>> getSpaceOption() {
+        List<SpaceDO> list = spaceService.list();
+        List<OptionVO> optionVOList = list.stream()
+                .map(accountDO -> {
+                    OptionVO optionVO = new OptionVO();
+                    optionVO.setLabel(accountDO.getSpaceName());
+                    optionVO.setValue(accountDO.getId().toString());
                     return optionVO;
                 }).collect(Collectors.toList());
         return ResponseResult.success(optionVOList);

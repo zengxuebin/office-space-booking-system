@@ -319,5 +319,5 @@ INSERT INTO biz_credit_score_change (id, credit_score_id, after_score, change_re
 /*
  * 初始化账户表
  */
-INSERT INTO biz_account (id, user_id, balance, status, create_time, update_time) VALUES (1, 1, 10, '0', '2024-03-01 09:02:03', '2024-03-01 09:02:03');
-INSERT INTO biz_account (id, user_id, balance, status, create_time, update_time) VALUES (2, 2, 10, '0', '2024-03-01 09:02:03', '2024-03-01 09:02:03');
+INSERT INTO biz_account (id, user_id, balance, status, create_time, update_time, accountName) VALUES (1, 1, 10, '0', '2024-03-01 09:02:03', '2024-03-01 09:02:03', 'admin的账户');
+INSERT INTO biz_account (id, user_id, balance, status, create_time, update_time, accountName) VALUES (2, 2, 10, '0', '2024-03-01 09:02:03', '2024-03-01 09:02:03', 'caolonghui的账户');

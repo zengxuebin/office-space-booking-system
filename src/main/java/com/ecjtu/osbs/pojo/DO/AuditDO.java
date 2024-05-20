@@ -1,6 +1,5 @@
 package com.ecjtu.osbs.pojo.DO;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -35,7 +34,7 @@ public class AuditDO {
     /**
      * 审核状态 0-待审核 1-审核通过 (-1)-审核不通过
      */
-    private String status;
+    private Integer status;
 
     /**
      * 审核意见

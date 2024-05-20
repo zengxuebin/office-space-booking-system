@@ -5,14 +5,13 @@
 
 <mapper namespace="com.ecjtu.osbs.web.dao.SysUserDao">
 
-    <select id="selectSysUserByUsername" resultType="com.ecjtu.osbs.pojo.DO.SysUserDO">
+    <select id="selectSysUserByUsername" resultType="com.ecjtu.osbs.pojo.DTO.system.SysUserDTO">
         SELECT id,
                username,
                password,
                role,
                email,
-               phone_number,
-               register_time
+               phone_number
         FROM sys_user
         WHERE username = #{username}
     </select>

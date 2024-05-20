@@ -1,17 +1,14 @@
 package com.ecjtu.osbs.pojo;
 
-import com.ecjtu.osbs.pojo.DO.SysUserDO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ecjtu.osbs.pojo.DTO.system.SysUserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 登录用户信息
@@ -27,7 +24,7 @@ public class UserDetailsInfo implements UserDetails {
     /**
      * 登录用户信息
      */
-    private SysUserDO sysUserDO;
+    private SysUserDTO sysUserDTO;
 
     /**
      * 用户权限信息
@@ -51,7 +48,7 @@ public class UserDetailsInfo implements UserDetails {
      */
     @Override
     public String getPassword() {
-        return sysUserDO.getPassword();
+        return sysUserDTO.getPassword();
     }
 
     /**
@@ -61,7 +58,7 @@ public class UserDetailsInfo implements UserDetails {
      */
     @Override
     public String getUsername() {
-        return sysUserDO.getUsername();
+        return sysUserDTO.getUsername();
     }
 
     /**

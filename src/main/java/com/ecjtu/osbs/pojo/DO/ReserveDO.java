@@ -37,6 +37,11 @@ public class ReserveDO {
     private Integer spaceId;
 
     /**
+     * 预约主题
+     */
+    private String topic;
+
+    /**
      * 预约时间
      */
     private LocalDateTime reserveTime;

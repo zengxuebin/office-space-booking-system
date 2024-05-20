@@ -94,6 +94,7 @@ public class SysUserController {
 
         // 创建账户
         AccountDO accountDO = new AccountDO();
+        accountDO.setAccountName(sysUserDO.getUsername() + "的账户");
         accountDO.setUserId(sysUserDO.getId());
         accountDO.setBalance(new BigDecimal("10"));
         accountDO.setStatus(AccountStatusEnum.NORMAL.getValue());

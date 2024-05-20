@@ -37,6 +37,11 @@ public class CreditScoreDO {
     private Integer score;
 
     /**
+     * 信誉分等级
+     */
+    private String level;
+
+    /**
      * 创建时间
      */
     private LocalDateTime createTime;

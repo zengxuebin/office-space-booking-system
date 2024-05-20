@@ -11,10 +11,10 @@ public class LoginConstants {
     /**
      * token开头标识
      */
-    public static final String BEARER = "BEARER ";
+    public static final String BEARER = "Bearer ";
 
     /**
      * token请求头
      */
-    public static final String AUTH = "Authentication";
+    public static final String AUTH = "Authorization";
 }

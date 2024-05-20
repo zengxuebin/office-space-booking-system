@@ -219,7 +219,7 @@ CREATE TABLE `biz_credit_score`
     `user_id`          INT(11)  NOT NULL COMMENT '用户id',
     `score`            INT(11)  NOT NULL COMMENT '信誉分 初始信誉分为100',
     `level`            VARCHAR(12) COMMENT '信誉分等级',
-    `create_time` DATETIME NOT NULL COMMENT '创建时间',
+    `create_time`      DATETIME NOT NULL COMMENT '创建时间',
     `last_update_time` DATETIME NOT NULL COMMENT '最后更新时间',
     PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `biz_space_category` (`id`) ON DELETE CASCADE
@@ -268,8 +268,8 @@ CREATE TABLE `biz_audit`
     `reserve_id`   INT(11)     NOT NULL COMMENT '预约id',
     `status`       VARCHAR(16) NOT NULL COMMENT '审核状态：0-待审核 1-通过 (-1)-不通过',
     `comment`      VARCHAR(64) COMMENT '审核意见',
-    `audit_person` VARCHAR(64) NOT NULL COMMENT '审核人员',
-    `audit_time`   DATETIME    NOT NULL COMMENT '审核时间',
+    `audit_person` VARCHAR(64) COMMENT '审核人员',
+    `audit_time`   DATETIME COMMENT '审核时间',
     PRIMARY KEY (`id`),
     FOREIGN KEY (`reserve_id`) REFERENCES `biz_reserve` (`id`) ON DELETE CASCADE
 ) ENGINE = InnoDB
@@ -281,12 +281,13 @@ CREATE TABLE `biz_audit`
 DROP TABLE IF EXISTS `biz_account`;
 CREATE TABLE `biz_account`
 (
-    `id`          INT(11)  NOT NULL AUTO_INCREMENT COMMENT '账户id',
-    `user_id`     INT(11)  NOT NULL COMMENT '用户id',
-    `balance`     FLOAT(2) NOT NULL COMMENT '账户余额',
-    `status`      VARCHAR(11) COMMENT '账户状态：0-正常 1-冻结 2-注销',
-    `create_time` DATETIME NOT NULL COMMENT '账户创建时间',
-    `update_time` DATETIME NOT NULL COMMENT '更新时间',
+    `id`           INT(11)     NOT NULL AUTO_INCREMENT COMMENT '账户id',
+    `user_id`      INT(11)     NOT NULL COMMENT '用户id',
+    `account_name` VARCHAR(64) NOT NULL COMMENT '账户名称',
+    `balance`      FLOAT(2)    NOT NULL COMMENT '账户余额',
+    `status`       VARCHAR(11) COMMENT '账户状态：0-正常 1-冻结 2-注销',
+    `create_time`  DATETIME    NOT NULL COMMENT '账户创建时间',
+    `update_time`  DATETIME    NOT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `sys_user` (`id`) ON DELETE CASCADE
 ) ENGINE = InnoDB

@@ -51,8 +51,7 @@ CREATE TABLE `sys_user`
     `phone_number`  VARCHAR(50) COMMENT '手机号',
     `register_time` DATETIME     NOT NULL COMMENT '注册时间',
     `update_time`   DATETIME     NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`dept_id`) REFERENCES `sys_dept` (`id`) ON DELETE CASCADE
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -116,9 +115,7 @@ CREATE TABLE `biz_space`
     `capacity`       INT(11) COMMENT '容量',
     `price_per_hour` FLOAT(2) COMMENT '每小时价格',
     `status`         VARCHAR(16) NOT NULL COMMENT '状态：0-空闲 1-已预定 2-维护中',
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`category_id`) REFERENCES `biz_space_category` (`id`) ON DELETE CASCADE,
-    FOREIGN KEY (`location_id`) REFERENCES `biz_location` (`id`) ON DELETE CASCADE
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -133,8 +130,7 @@ CREATE TABLE `biz_space_equipment`
     `name`        VARCHAR(64) NOT NULL COMMENT '设备名称',
     `create_time` DATETIME    NOT NULL COMMENT '创建时间',
     `update_time` DATETIME    NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`category_id`) REFERENCES `biz_space_category` (`id`) ON DELETE CASCADE
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -152,9 +148,7 @@ CREATE TABLE `biz_reserve`
     `start_time`   DATETIME COMMENT '预约开始时间',
     `end_time`     DATETIME COMMENT '预约结束时间',
     `status`       VARCHAR(16) NOT NULL COMMENT '状态：0-待付款 1-待使用 (-1)-已取消 2-待评价 3-已完成',
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `biz_space_category` (`id`) ON DELETE CASCADE,
-    FOREIGN KEY (`space_id`) REFERENCES `biz_space` (`id`) ON DELETE CASCADE
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -168,9 +162,7 @@ CREATE TABLE `biz_reserve_user`
     `reserve_id` INT(11)    NOT NULL COMMENT '预约id',
     `user_id`    INT(11)    NOT NULL COMMENT '用户id',
     `status`     VARCHAR(2) NOT NULL COMMENT '预约状态：0-待确认 (-1)-已拒绝 1-已确认 (-2)-已取消',
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`reserve_id`) REFERENCES `biz_reserve` (`id`) ON DELETE CASCADE,
-    FOREIGN KEY (`user_id`) REFERENCES `sys_user` (`id`) ON DELETE CASCADE
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -186,8 +178,7 @@ CREATE TABLE `biz_order`
     `order_time` DATETIME COMMENT '下单时间',
     `pay_time`   DATETIME COMMENT '支付时间',
     `status`     VARCHAR(16) NOT NULL COMMENT '状态：0-待支付 1-已支付 (-1)-支付失败',
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`reserve_id`) REFERENCES `biz_reserve` (`id`) ON DELETE CASCADE
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -203,9 +194,7 @@ CREATE TABLE `biz_evaluate`
     `rating`        FLOAT(2) COMMENT '评分',
     `content`       VARCHAR(255) COMMENT '评论内容',
     `evaluate_time` DATETIME NOT NULL COMMENT '评论时间',
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `biz_space_category` (`id`) ON DELETE CASCADE,
-    FOREIGN KEY (`space_id`) REFERENCES `biz_space` (`id`) ON DELETE CASCADE
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -221,8 +210,7 @@ CREATE TABLE `biz_credit_score`
     `level`            VARCHAR(12) COMMENT '信誉分等级',
     `create_time`      DATETIME NOT NULL COMMENT '创建时间',
     `last_update_time` DATETIME NOT NULL COMMENT '最后更新时间',
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `biz_space_category` (`id`) ON DELETE CASCADE
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -237,8 +225,7 @@ CREATE TABLE `biz_credit_score_change`
     `after_score`     INT(11)  NOT NULL COMMENT '变更后信誉分',
     `change_reason`   VARCHAR(255) COMMENT '变更原因',
     `change_time`     DATETIME NOT NULL COMMENT '变更时间',
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`credit_score_id`) REFERENCES `biz_credit_score` (`id`) ON DELETE CASCADE
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -252,9 +239,7 @@ CREATE TABLE `biz_user_favorite`
     `user_id`      INT(11)  NOT NULL COMMENT '用户id',
     `space_id`     INT(11)  NOT NULL COMMENT '办公空间id',
     `favoriteTime` DATETIME NOT NULL COMMENT '收藏时间',
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `biz_space_category` (`id`) ON DELETE CASCADE,
-    FOREIGN KEY (`space_id`) REFERENCES `biz_space` (`id`) ON DELETE CASCADE
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -270,8 +255,7 @@ CREATE TABLE `biz_audit`
     `comment`      VARCHAR(64) COMMENT '审核意见',
     `audit_person` VARCHAR(64) COMMENT '审核人员',
     `audit_time`   DATETIME COMMENT '审核时间',
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`reserve_id`) REFERENCES `biz_reserve` (`id`) ON DELETE CASCADE
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -288,8 +272,7 @@ CREATE TABLE `biz_account`
     `status`       VARCHAR(11) COMMENT '账户状态：0-正常 1-冻结 2-注销',
     `create_time`  DATETIME    NOT NULL COMMENT '账户创建时间',
     `update_time`  DATETIME    NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `sys_user` (`id`) ON DELETE CASCADE
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -305,7 +288,6 @@ CREATE TABLE `biz_transaction`
     `amount`     FLOAT(2) NOT NULL COMMENT '交易金额',
     `status`     VARCHAR(11) COMMENT '交易状态：0-正常 1-失败',
     `time`       DATETIME NOT NULL COMMENT '交易时间',
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`account_id`) REFERENCES `biz_account` (`id`) ON DELETE CASCADE
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;

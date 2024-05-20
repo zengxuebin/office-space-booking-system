@@ -297,13 +297,21 @@ INSERT INTO biz_space (id, category_id, location_id, space_name, description, ca
 /*
  * 初始化空间设备表
  */
-INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update_time) VALUES (1, '开放式工位', '1', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
-INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update_time) VALUES (2, '独立办公室', '0', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
-INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update_time) VALUES (3, '会议室', '0', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
-INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update_time) VALUES (4, '体育场馆', '0', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
-INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update_time) VALUES (5, '报告厅', '0', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
-INSERT INTO biz_space_category (id, category_name, is_audit, create_time, update_time) VALUES (7, 'test1', '1', '2024-05-19 18:45:13', '2024-05-19 18:45:20');
-
+INSERT INTO biz_space_equipment (id, category_id, name, create_time, update_time) VALUES (1, 1, '可移动座位', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_equipment (id, category_id, name, create_time, update_time) VALUES (2, 1, '免费WIFI', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_equipment (id, category_id, name, create_time, update_time) VALUES (3, 1, '座位插座', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_equipment (id, category_id, name, create_time, update_time) VALUES (4, 2, '沙发', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_equipment (id, category_id, name, create_time, update_time) VALUES (5, 2, '办公桌椅', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_equipment (id, category_id, name, create_time, update_time) VALUES (6, 2, '茶具', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_equipment (id, category_id, name, create_time, update_time) VALUES (7, 2, '空调', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_equipment (id, category_id, name, create_time, update_time) VALUES (8, 3, '液晶屏', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_equipment (id, category_id, name, create_time, update_time) VALUES (9, 3, '网络视频终端', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_equipment (id, category_id, name, create_time, update_time) VALUES (10, 3, '白板', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_equipment (id, category_id, name, create_time, update_time) VALUES (11, 3, '投影仪', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_equipment (id, category_id, name, create_time, update_time) VALUES (12, 3, '长桌', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_equipment (id, category_id, name, create_time, update_time) VALUES (13, 4, '免费WIFI', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_equipment (id, category_id, name, create_time, update_time) VALUES (14, 5, '超大巨幕投影', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
+INSERT INTO biz_space_equipment (id, category_id, name, create_time, update_time) VALUES (15, 5, '报告会场服务', '2024-03-30 09:20:59', '2024-03-30 09:20:59');
 /*
  * 初始化信誉分表
  */

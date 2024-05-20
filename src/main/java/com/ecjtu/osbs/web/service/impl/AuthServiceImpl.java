@@ -50,7 +50,7 @@ public class AuthServiceImpl implements AuthService {
         // 将用户信息存入redis
         UserDetailsInfo userDetailsInfo = (UserDetailsInfo) authenticate.getPrincipal();
         String userKey = RedisKey.LOGIN_USER + username;
-        redisUtil.setCacheObject(userKey, userDetailsInfo, 120L, TimeUnit.MINUTES);
+        redisUtil.setCacheObject(userKey, userDetailsInfo, 30L, TimeUnit.DAYS);
 
         // 生成token
         Map<String, Object> claims = new HashMap<>();

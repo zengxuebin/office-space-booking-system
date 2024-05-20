@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ecjtu.osbs.constant.ResponseCode;
 import com.ecjtu.osbs.enums.AccountStatusEnum;
 import com.ecjtu.osbs.enums.RoleEnum;
+import com.ecjtu.osbs.enums.ScoreLevelEnum;
 import com.ecjtu.osbs.pojo.DO.AccountDO;
 import com.ecjtu.osbs.pojo.DO.CreditScoreDO;
 import com.ecjtu.osbs.pojo.DO.SysUserDO;
@@ -108,6 +109,7 @@ public class SysUserController {
         creditScoreDO.setScore(100);
         creditScoreDO.setCreateTime(now);
         creditScoreDO.setLastUpdateTime(now);
+        creditScoreDO.setLevel(ScoreLevelEnum.GOOD.getCode());
         creditScoreService.save(creditScoreDO);
         return ResponseResult.success();
     }

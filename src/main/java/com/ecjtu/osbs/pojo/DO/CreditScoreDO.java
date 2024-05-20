@@ -39,7 +39,7 @@ public class CreditScoreDO {
     /**
      * 信誉分等级
      */
-    private String level;
+    private Integer level;
 
     /**
      * 创建时间

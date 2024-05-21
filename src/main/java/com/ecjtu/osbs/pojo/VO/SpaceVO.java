@@ -69,4 +69,9 @@ public class SpaceVO {
      */
     private String occupancyDescription;
 
+    /**
+     * 是否被收藏
+     */
+    private boolean favorite;
+
 }

@@ -7,19 +7,14 @@ import com.ecjtu.osbs.constant.SpaceCategory;
 import com.ecjtu.osbs.enums.CapacityEnum;
 import com.ecjtu.osbs.enums.OccupancyStatusEnum;
 import com.ecjtu.osbs.enums.SpaceStatusEnum;
-import com.ecjtu.osbs.pojo.DO.ReserveDO;
-import com.ecjtu.osbs.pojo.DO.SpaceDO;
-import com.ecjtu.osbs.pojo.DO.SpaceEquipmentDO;
-import com.ecjtu.osbs.pojo.DO.SpaceLocationDO;
+import com.ecjtu.osbs.pojo.DO.*;
 import com.ecjtu.osbs.pojo.DTO.reserve.OfficeSpaceQueryDTO;
 import com.ecjtu.osbs.pojo.PageInfo;
 import com.ecjtu.osbs.pojo.ResponseResult;
 import com.ecjtu.osbs.pojo.VO.OptionVO;
 import com.ecjtu.osbs.pojo.VO.SpaceVO;
-import com.ecjtu.osbs.web.service.ReserveService;
-import com.ecjtu.osbs.web.service.SpaceEquipmentService;
-import com.ecjtu.osbs.web.service.SpaceLocationService;
-import com.ecjtu.osbs.web.service.SpaceService;
+import com.ecjtu.osbs.util.SecurityUtil;
+import com.ecjtu.osbs.web.service.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,6 +48,9 @@ public class OfficeSpaceController {
 
     @Autowired
     private SpaceEquipmentService equipmentService;
+
+    @Autowired
+    private UserFavoriteService favoriteService;
 
     /**
      * 分页查询可预约办公空间
@@ -169,6 +167,13 @@ public class OfficeSpaceController {
             spaceVO.setStatus(spaceDO.getStatus());
             spaceVO.setPricePerHour(spaceDO.getPricePerHour());
             spaceVO.setEquipmentList(equipmentList);
+
+            // 是否被收藏
+            Integer userId = SecurityUtil.getUserDetailsInfo().getSysUserDTO().getId();
+            LambdaQueryWrapper<UserFavoriteDO> favoriteQueryWrapper = new LambdaQueryWrapper<>();
+            favoriteQueryWrapper.eq(UserFavoriteDO::getSpaceId, spaceDO.getId())
+                    .eq(UserFavoriteDO::getUserId, userId);
+            spaceVO.setFavorite(favoriteService.count(favoriteQueryWrapper) > 0);
             return spaceVO;
         });
         return ResponseResult.success(voPage);

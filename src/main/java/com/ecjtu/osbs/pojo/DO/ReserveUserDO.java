@@ -37,5 +37,5 @@ public class ReserveUserDO {
     /**
      * 受邀状态 0-待确认 (-1)-已拒绝 1-已确认
      */
-    private String status;
+    private Integer status;
 }

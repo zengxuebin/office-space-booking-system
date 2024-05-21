@@ -93,7 +93,7 @@ public class OfficeSpaceController {
             return ResponseResult.success(new Page<>());
         }
 
-        // 查询可预约空间id列表
+        // 查询已预约空间id列表
         LambdaQueryWrapper<ReserveDO> reserveQueryWrapper = new LambdaQueryWrapper<>();
         reserveQueryWrapper
                 .in(ReserveDO::getSpaceId, spaceIdList)

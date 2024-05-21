@@ -1,12 +1,18 @@
 package com.ecjtu.osbs.web.controller.reserve;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.ecjtu.osbs.constant.ResponseCode;
 import com.ecjtu.osbs.enums.AuditStatusEnum;
+import com.ecjtu.osbs.enums.ReservationStatusEnum;
 import com.ecjtu.osbs.pojo.DO.AuditDO;
 import com.ecjtu.osbs.pojo.DO.ReserveDO;
+import com.ecjtu.osbs.pojo.DO.ReserveUserDO;
 import com.ecjtu.osbs.pojo.DTO.reserve.OfficeSpaceDTO;
+import com.ecjtu.osbs.pojo.DTO.reserve.PublicSpaceDTO;
 import com.ecjtu.osbs.pojo.ResponseResult;
 import com.ecjtu.osbs.web.service.AuditService;
 import com.ecjtu.osbs.web.service.ReserveService;
+import com.ecjtu.osbs.web.service.ReserveUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 预约控制器
@@ -32,6 +41,8 @@ public class ReserveSpaceController {
     @Autowired
     private AuditService auditService;
 
+    @Autowired
+    private ReserveUserService reserveUserService;
 
     /**
      * 预约共享工位
@@ -41,6 +52,16 @@ public class ReserveSpaceController {
      */
     @PostMapping("office")
     public ResponseResult<Void> reserveOfficeSpace(@RequestBody OfficeSpaceDTO officeSpaceDTO) {
+        // 判断是否已经预约
+        LambdaQueryWrapper<ReserveDO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(ReserveDO::getUserId, officeSpaceDTO.getUserId())
+                .eq(ReserveDO::getStartTime, officeSpaceDTO.getReserveDate().atStartOfDay())
+                .eq(ReserveDO::getEndTime, officeSpaceDTO.getReserveDate().atTime(23, 59, 59));
+        if (!reserveService.list().isEmpty()){
+            return ResponseResult.fail(ResponseCode.ERROR_CODE, "该时段该用户已经预约过共享空间");
+        }
+
+
         ReserveDO reserveDO = new ReserveDO();
         reserveDO.setUserId(officeSpaceDTO.getUserId());
         reserveDO.setSpaceId(officeSpaceDTO.getSpaceId());
@@ -65,6 +86,71 @@ public class ReserveSpaceController {
         auditDO.setAuditPerson("admin");
         auditDO.setAuditTime(now);
         auditService.save(auditDO);
+        return ResponseResult.success();
+    }
+
+
+    /**
+     * 预约工共场馆
+     *
+     * @param publicSpaceDTO 预约单
+     * @return void
+     */
+    @PostMapping("public")
+    public ResponseResult<Void> reserveOfficeSpace(@RequestBody PublicSpaceDTO publicSpaceDTO) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime reserveStartTime = LocalDateTime.parse(publicSpaceDTO.getReserveStartTime(), dateTimeFormatter);
+        LocalDateTime reserveEndTime = LocalDateTime.parse(publicSpaceDTO.getReserveEndTime(), dateTimeFormatter);
+
+        // 判断是否已经预约
+        LambdaQueryWrapper<ReserveDO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(ReserveDO::getUserId, publicSpaceDTO.getUserId())
+                // 开始时间在给定范围内
+                .between(ReserveDO::getStartTime, reserveStartTime, reserveEndTime)
+                .or()
+                // 结束时间在给定范围内
+                .between(ReserveDO::getEndTime, reserveStartTime, reserveEndTime)
+                // startTime可能在目标时间段内
+                .lt(ReserveDO::getEndTime, reserveStartTime)
+                // endTime可能在目标时间段内
+                .gt(ReserveDO::getStartTime, reserveEndTime);
+        if (!reserveService.list(queryWrapper).isEmpty()){
+            return ResponseResult.fail(ResponseCode.ERROR_CODE, "该时段该用户已经预约过共享空间");
+        }
+
+        ReserveDO reserveDO = new ReserveDO();
+        reserveDO.setUserId(publicSpaceDTO.getUserId());
+        reserveDO.setSpaceId(publicSpaceDTO.getSpaceId());
+        reserveDO.setTopic(publicSpaceDTO.getTopic());
+        reserveDO.setStartTime(reserveStartTime);
+        reserveDO.setEndTime(reserveEndTime);
+
+        // 添加到预约单
+        LocalDateTime now = LocalDateTime.now();
+        reserveDO.setReserveTime(now);
+        reserveDO.setStatus(1);
+        reserveService.save(reserveDO);
+
+        // 添加到审核单
+        AuditDO auditDO = new AuditDO();
+        auditDO.setReserveId(reserveDO.getId());
+        AuditStatusEnum pending = AuditStatusEnum.PENDING;
+        auditDO.setComment(pending.getDescription());
+        auditDO.setStatus(pending.getCode());
+        auditService.save(auditDO);
+
+        // 受邀用户
+        List<Integer> reserveUserIdList = publicSpaceDTO.getReserveUserIdList();
+        if (!reserveUserIdList.isEmpty()) {
+            List<ReserveUserDO> reserveUserDOList = new ArrayList<>();
+            reserveUserIdList.forEach(userId -> {
+                ReserveUserDO reserveUserDO = new ReserveUserDO();
+                reserveUserDO.setReserveId(reserveDO.getId());
+                reserveUserDO.setUserId(userId);
+                reserveUserDO.setStatus(ReservationStatusEnum.PENDING.getCode());
+            });
+            reserveUserService.saveBatch(reserveUserDOList);
+        }
         return ResponseResult.success();
     }
 }

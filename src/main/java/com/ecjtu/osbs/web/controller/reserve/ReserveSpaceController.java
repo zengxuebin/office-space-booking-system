@@ -57,10 +57,9 @@ public class ReserveSpaceController {
         queryWrapper.eq(ReserveDO::getUserId, officeSpaceDTO.getUserId())
                 .eq(ReserveDO::getStartTime, officeSpaceDTO.getReserveDate().atStartOfDay())
                 .eq(ReserveDO::getEndTime, officeSpaceDTO.getReserveDate().atTime(23, 59, 59));
-        if (!reserveService.list().isEmpty()){
+        if (!reserveService.list(queryWrapper).isEmpty()){
             return ResponseResult.fail(ResponseCode.ERROR_CODE, "该时段该用户已经预约过共享空间");
         }
-
 
         ReserveDO reserveDO = new ReserveDO();
         reserveDO.setUserId(officeSpaceDTO.getUserId());

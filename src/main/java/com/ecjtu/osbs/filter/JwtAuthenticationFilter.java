@@ -4,7 +4,6 @@ import com.ecjtu.osbs.constant.LoginConstants;
 import com.ecjtu.osbs.constant.RedisKey;
 import com.ecjtu.osbs.constant.ResponseCode;
 import com.ecjtu.osbs.exception.CustomException;
-import com.ecjtu.osbs.exception.GlobalException;
 import com.ecjtu.osbs.pojo.ResponseResult;
 import com.ecjtu.osbs.pojo.UserDetailsInfo;
 import com.ecjtu.osbs.util.JwtUtil;
@@ -79,7 +78,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throw new CustomException(ResponseCode.NOT_LOGIN_CODE, "用户未登录");
         }
         // 重置redis缓存时间
-        redisUtil.expire(redisKey, 60, TimeUnit.MINUTES);
+        redisUtil.expire(redisKey, 30, TimeUnit.HOURS);
 
         // 封装Authentication
         UsernamePasswordAuthenticationToken authentication =

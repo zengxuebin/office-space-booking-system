@@ -59,5 +59,5 @@ public class ReserveDO {
     /**
      * 预约状态 0-待付款 1-待使用 (-1)-已取消 2-待评价 3-已完成
      */
-    private String status;
+    private Integer status;
 }

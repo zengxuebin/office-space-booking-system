@@ -63,6 +63,12 @@ public class FavoriteController {
                 .map(UserFavoriteDO::getSpaceId)
                 .collect(Collectors.toList());
         LambdaQueryWrapper<SpaceDO> queryWrapper = new LambdaQueryWrapper<>();
+
+        // 收藏列表为空 直接返回空对象
+        if (favoriteSpaceIdList.isEmpty()) {
+            return ResponseResult.success(new Page<>());
+        }
+
         queryWrapper.in(SpaceDO::getId, favoriteSpaceIdList)
                 .eq(entity.getCategoryId() == 1, SpaceDO::getCategoryId, entity.getCategoryId())
                 .ne(entity.getCategoryId() != 1, SpaceDO::getCategoryId, 1);

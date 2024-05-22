@@ -5,13 +5,13 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * 我发起的邀约展示对象
+ * 邀约展示对象
  *
  * @author CaoLongHui
  * @since 2024/5/22 22:52
  */
 @Data
-public class ReserveCreateVO {
+public class ReserveVO {
 
     /**
      * 标识

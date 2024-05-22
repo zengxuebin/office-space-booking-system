@@ -6,14 +6,12 @@ import com.ecjtu.osbs.pojo.DO.CreditScoreDO;
 import com.ecjtu.osbs.pojo.DTO.CreditScoreQueryDTO;
 import com.ecjtu.osbs.pojo.PageInfo;
 import com.ecjtu.osbs.pojo.ResponseResult;
+import com.ecjtu.osbs.util.SecurityUtil;
 import com.ecjtu.osbs.web.service.CreditScoreService;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 信誉分控制层
@@ -27,6 +25,19 @@ public class CreditScoreController {
 
     @Autowired
     private CreditScoreService creditScoreService;
+
+    /**
+     * 我的信誉分
+     * @return 信誉分
+     */
+    @GetMapping("myCredit")
+    public ResponseResult<CreditScoreDO> getMyCreditScore() {
+        Integer userId = SecurityUtil.getUserDetailsInfo().getSysUserDTO().getId();
+        LambdaQueryWrapper<CreditScoreDO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(CreditScoreDO::getUserId, userId);
+        CreditScoreDO creditScoreDO = creditScoreService.getOne(queryWrapper);
+        return ResponseResult.success(creditScoreDO);
+    }
 
     /**
      * 分页查询信誉分

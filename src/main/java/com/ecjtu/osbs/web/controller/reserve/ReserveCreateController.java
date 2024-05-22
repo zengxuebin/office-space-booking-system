@@ -3,14 +3,14 @@ package com.ecjtu.osbs.web.controller.reserve;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ecjtu.osbs.enums.AuditStatusEnum;
+import com.ecjtu.osbs.enums.ReservedStatusEnum;
 import com.ecjtu.osbs.pojo.DO.AuditDO;
 import com.ecjtu.osbs.pojo.DO.ReserveDO;
 import com.ecjtu.osbs.pojo.DO.SpaceDO;
-import com.ecjtu.osbs.pojo.DTO.reserve.ReserveCreateQueryDTO;
+import com.ecjtu.osbs.pojo.DTO.reserve.ReserveQueryDTO;
 import com.ecjtu.osbs.pojo.PageInfo;
 import com.ecjtu.osbs.pojo.ResponseResult;
-import com.ecjtu.osbs.pojo.VO.ReserveCreateVO;
+import com.ecjtu.osbs.pojo.VO.ReserveVO;
 import com.ecjtu.osbs.util.SecurityUtil;
 import com.ecjtu.osbs.web.service.AuditService;
 import com.ecjtu.osbs.web.service.ReserveService;
@@ -51,8 +51,8 @@ public class ReserveCreateController {
      * @return 用户列表
      */
     @PostMapping("page")
-    public ResponseResult<IPage<ReserveCreateVO>> getSysUserList(@RequestBody PageInfo<ReserveCreateQueryDTO> pageInfo) {
-        ReserveCreateQueryDTO entity = pageInfo.getEntity();
+    public ResponseResult<IPage<ReserveVO>> getSysUserList(@RequestBody PageInfo<ReserveQueryDTO> pageInfo) {
+        ReserveQueryDTO entity = pageInfo.getEntity();
 
         // 查询该用户的所有预约记录
         Integer userId = SecurityUtil.getUserDetailsInfo().getSysUserDTO().getId();
@@ -86,8 +86,8 @@ public class ReserveCreateController {
 
 
         // 返回展示对象
-        IPage<ReserveCreateVO> voPage = doPage.convert(reserveDO -> {
-            ReserveCreateVO vo = new ReserveCreateVO();
+        IPage<ReserveVO> voPage = doPage.convert(reserveDO -> {
+            ReserveVO vo = new ReserveVO();
 
             vo.setId(reserveDO.getId());
             vo.setTopic(reserveDO.getTopic());
@@ -97,7 +97,7 @@ public class ReserveCreateController {
             LambdaQueryWrapper<AuditDO> queryWrapper = new LambdaQueryWrapper<>();
             queryWrapper.eq(AuditDO::getReserveId, reserveDO.getId());
             AuditDO auditDO = auditService.getOne(queryWrapper);
-            vo.setStatus(Objects.requireNonNull(AuditStatusEnum.getEnumByCode(auditDO.getStatus())).getDescription());
+            vo.setStatus(Objects.requireNonNull(ReservedStatusEnum.getEnumByCode(auditDO.getStatus())).getDescription());
 
             LambdaQueryWrapper<SpaceDO> spaceDOWrapper = new LambdaQueryWrapper<>();
             spaceDOWrapper.eq(SpaceDO::getId, reserveDO.getSpaceId());

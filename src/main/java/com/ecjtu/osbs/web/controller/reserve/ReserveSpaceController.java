@@ -150,6 +150,7 @@ public class ReserveSpaceController {
                 reserveUserDO.setReserveId(reserveDO.getId());
                 reserveUserDO.setUserId(userId);
                 reserveUserDO.setStatus(ReservationStatusEnum.PENDING.getCode());
+                reserveUserDOList.add(reserveUserDO);
             });
             reserveUserService.saveBatch(reserveUserDOList);
         }
@@ -171,6 +172,13 @@ public class ReserveSpaceController {
         auditDO.setStatus(userCanceled.getCode());
         auditDO.setComment(userCanceled.getDescription());
         auditService.updateById(auditDO);
+
+        // 受邀用户也被取消
+        LambdaQueryWrapper<ReserveUserDO> reserveUserQueryWrapper = new LambdaQueryWrapper<>();
+        reserveUserQueryWrapper.eq(ReserveUserDO::getReserveId, reserveId);
+        ReserveUserDO reserveUserDO = reserveUserService.getOne(reserveUserQueryWrapper);
+        reserveUserDO.setStatus(ReservationStatusEnum.CANCELLED.getCode());
+        reserveUserService.updateById(reserveUserDO);
 
         // 扣除信誉分
         Integer userId = SecurityUtil.getUserDetailsInfo().getSysUserDTO().getId();

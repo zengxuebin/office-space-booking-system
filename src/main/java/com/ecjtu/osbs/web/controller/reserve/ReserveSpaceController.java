@@ -5,19 +5,19 @@ import com.ecjtu.osbs.constant.ResponseCode;
 import com.ecjtu.osbs.enums.AuditStatusEnum;
 import com.ecjtu.osbs.enums.ReservationStatusEnum;
 import com.ecjtu.osbs.pojo.DO.AuditDO;
+import com.ecjtu.osbs.pojo.DO.CreditScoreDO;
 import com.ecjtu.osbs.pojo.DO.ReserveDO;
 import com.ecjtu.osbs.pojo.DO.ReserveUserDO;
 import com.ecjtu.osbs.pojo.DTO.reserve.OfficeSpaceDTO;
 import com.ecjtu.osbs.pojo.DTO.reserve.PublicSpaceDTO;
 import com.ecjtu.osbs.pojo.ResponseResult;
+import com.ecjtu.osbs.util.SecurityUtil;
 import com.ecjtu.osbs.web.service.AuditService;
+import com.ecjtu.osbs.web.service.CreditScoreService;
 import com.ecjtu.osbs.web.service.ReserveService;
 import com.ecjtu.osbs.web.service.ReserveUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -43,6 +43,9 @@ public class ReserveSpaceController {
 
     @Autowired
     private ReserveUserService reserveUserService;
+
+    @Autowired
+    private CreditScoreService creditScoreService;
 
     /**
      * 预约共享工位
@@ -150,6 +153,33 @@ public class ReserveSpaceController {
             });
             reserveUserService.saveBatch(reserveUserDOList);
         }
+        return ResponseResult.success();
+    }
+
+    /**
+     * 取消预约
+     *
+     * @param reserveId 预约id
+     * @return 取消预约
+     */
+    @PostMapping("cancel/{reserveId}")
+    public ResponseResult<Void> cancelReserve(@PathVariable Integer reserveId) {
+        AuditStatusEnum userCanceled = AuditStatusEnum.USER_CANCELED;
+        LambdaQueryWrapper<AuditDO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(AuditDO::getReserveId, reserveId);
+        AuditDO auditDO = auditService.getOne(queryWrapper);
+        auditDO.setStatus(userCanceled.getCode());
+        auditDO.setComment(userCanceled.getDescription());
+        auditService.updateById(auditDO);
+
+        // 扣除信誉分
+        Integer userId = SecurityUtil.getUserDetailsInfo().getSysUserDTO().getId();
+        LambdaQueryWrapper<CreditScoreDO> creditScoreQueryWrapper = new LambdaQueryWrapper<>();
+        creditScoreQueryWrapper.eq(CreditScoreDO::getUserId, userId);
+        CreditScoreDO creditScoreDO = creditScoreService.getOne(creditScoreQueryWrapper);
+        creditScoreDO.setScore(Math.max(creditScoreDO.getScore() - 5, 0));
+        creditScoreDO.setLastUpdateTime(LocalDateTime.now());
+        creditScoreService.updateById(creditScoreDO);
         return ResponseResult.success();
     }
 }

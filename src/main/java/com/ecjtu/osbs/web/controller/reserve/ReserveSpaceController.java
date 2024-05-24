@@ -176,9 +176,13 @@ public class ReserveSpaceController {
         // 受邀用户也被取消
         LambdaQueryWrapper<ReserveUserDO> reserveUserQueryWrapper = new LambdaQueryWrapper<>();
         reserveUserQueryWrapper.eq(ReserveUserDO::getReserveId, reserveId);
-        ReserveUserDO reserveUserDO = reserveUserService.getOne(reserveUserQueryWrapper);
-        reserveUserDO.setStatus(ReservationStatusEnum.CANCELLED.getCode());
-        reserveUserService.updateById(reserveUserDO);
+        List<ReserveUserDO> reserveUserList = reserveUserService.list(reserveUserQueryWrapper);
+        if (!reserveUserList.isEmpty()) {
+            reserveUserList.forEach(reserveUserDO -> {
+                reserveUserDO.setStatus(ReservationStatusEnum.CANCELLED.getCode());
+            });
+            reserveUserService.updateBatchById(reserveUserList);
+        }
 
         // 扣除信誉分
         Integer userId = SecurityUtil.getUserDetailsInfo().getSysUserDTO().getId();

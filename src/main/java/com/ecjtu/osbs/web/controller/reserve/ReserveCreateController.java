@@ -3,7 +3,7 @@ package com.ecjtu.osbs.web.controller.reserve;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ecjtu.osbs.enums.ReservedStatusEnum;
+import com.ecjtu.osbs.enums.AuditStatusEnum;
 import com.ecjtu.osbs.pojo.DO.AuditDO;
 import com.ecjtu.osbs.pojo.DO.ReserveDO;
 import com.ecjtu.osbs.pojo.DO.SpaceDO;
@@ -97,7 +97,7 @@ public class ReserveCreateController {
             LambdaQueryWrapper<AuditDO> queryWrapper = new LambdaQueryWrapper<>();
             queryWrapper.eq(AuditDO::getReserveId, reserveDO.getId());
             AuditDO auditDO = auditService.getOne(queryWrapper);
-            vo.setStatus(Objects.requireNonNull(ReservedStatusEnum.getEnumByCode(auditDO.getStatus())).getDescription());
+            vo.setStatus(Objects.requireNonNull(AuditStatusEnum.getEnumByCode(auditDO.getStatus())).getDescription());
 
             LambdaQueryWrapper<SpaceDO> spaceDOWrapper = new LambdaQueryWrapper<>();
             spaceDOWrapper.eq(SpaceDO::getId, reserveDO.getSpaceId());

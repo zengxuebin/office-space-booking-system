@@ -69,7 +69,7 @@ public class AuditController {
         AuditDO auditDO = new AuditDO();
         auditDO.setId(id);
         auditDO.setStatus(approvedCode);
-        auditDO.setComment("同意");
+        auditDO.setComment(auditDO.getComment());
         auditDO.setAuditPerson(SecurityUtil.getUserDetailsInfo().getUsername());
         auditDO.setAuditTime(LocalDateTime.now());
         auditService.updateById(auditDO);

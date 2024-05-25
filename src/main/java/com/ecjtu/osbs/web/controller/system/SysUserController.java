@@ -141,7 +141,9 @@ public class SysUserController {
             return ResponseResult.fail(ResponseCode.FAILURE_CODE, "管理员不能删除");
         }
         sysUserService.removeById(id);
+        // 删除账户
         accountService.remove(new LambdaQueryWrapper<AccountDO>().eq(AccountDO::getUserId, id));
+        // 删除信誉分
         creditScoreService.remove(new LambdaQueryWrapper<CreditScoreDO>().eq(CreditScoreDO::getUserId, id));
         return ResponseResult.success();
     }
@@ -155,7 +157,9 @@ public class SysUserController {
     @PostMapping("batchDelete")
     public ResponseResult<Void> batchDeleteSysUser(@RequestBody List<Integer> ids) {
         sysUserService.removeByIds(ids);
+        // 删除账户
         accountService.remove(new LambdaQueryWrapper<AccountDO>().in(AccountDO::getUserId, ids));
+        // 删除信誉分
         creditScoreService.remove(new LambdaQueryWrapper<CreditScoreDO>().in(CreditScoreDO::getUserId, ids));
         return ResponseResult.success();
     }
